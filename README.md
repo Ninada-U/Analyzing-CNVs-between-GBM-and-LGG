@@ -1,5 +1,5 @@
 DSC 180: Senior Capstone
 
-Comparing Glioblastoma Multiforme (GBM) SNPs with Lower Grade Glioma (LGG) SNPs
+Comparing Glioblastoma Multiforme (GBM) SNVs with Lower Grade Glioma (LGG) SNVs
 
 Members: Yifei Ning, Siqi Huang, Noah Inada
