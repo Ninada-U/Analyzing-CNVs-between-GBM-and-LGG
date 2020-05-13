@@ -15,6 +15,10 @@ The intended audience for this webpage is those with basic knowledge of biology/
 
 
 
+```
+![Kiku](images/LGG.png)
+```
+
 We have not confirmed our visualizations yet, but right now we may go with:
 
 - A heatmap comparing the CNVs of those with Glioblastoma Multiforme and those with a low-grade glioma
