@@ -13,7 +13,9 @@ By Yifei Ning, Siqi Huang, and Noah Inada
 
 The intended audience for this webpage is those with basic knowledge of biology/genetics - e.g. highschool or college graduates. We discuss the brain cancer Glioblastoma Multiforme and brain tumors low-grade gliomas. We also discuss Copy Number Variation, a form of genetic variation. The outline of our website will be structured similar to our elevator pitch, maybe with images and more details.
 
-
+```
+![Logo Jekyll]({{site.url}}/assets/images/LGG.png )
+```
 
 ```
 ![Kiku](images/LGG.png)
