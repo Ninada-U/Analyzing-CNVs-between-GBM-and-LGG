@@ -1,33 +1,36 @@
-# You can define a list of samples to query and download providing relative TCGA barcodes.
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
 
-listSamplesLGG <- c("TCGA-HT-8558-01A-21D-2391-01","TCGA-HT-7857-10A-01D-2392-01",
-                 "TCGA-DU-6406-10A-01D-1704-01","TCGA-P5-A5F0-10A-01D-A288-01",
-                 "TCGA-DU-A6S3-10A-01D-A328-01","TCGA-DU-6404-10A-01D-1704-01",
-                 "TCGA-HT-8010-10A-01D-2392-01","TCGA-HT-8558-10A-01D-2392-01",
-                 "TCGA-TM-A84Q-10A-01D-A366-01","TCGA-S9-A7R2-10A-01D-A34L-01")
+BiocManager::install("TCGAbiolinks")
 
-# Query platform Illumina HiSeq with a list of barcode 
+library(TCGAbiolinks)
+library(SummarizedExperiment)
+
 query <- GDCquery(project = "TCGA-GBM", 
-                  data.category = "Copy Number Variation",
-                  data.type = "Allele-specific Copy Number Segment",
-                  experimental.strategy = "Genotyping Array",
+                  data.category = "Transcriptome Profiling",
+                  data.type = "Gene Expression Quantification",
+                  experimental.strategy = "RNA-Seq",
+                  workflow.type = "HTSeq - Counts"
                   )
-
-# Download a list of barcodes with platform IlluminaHiSeq_RNASeqV2
 GDCdownload(query)
-
-# Prepare expression matrix with geneID in the rows and samples (barcode) in the columns
-# rsem.genes.results as values
-BRCARnaseq_assay <- GDCprepare(query, summarizedExperiment = TRUE)
-
+BRCARnaseq_assay <- GDCprepare(query)
 BRCAMatrix <- assay(BRCARnaseq_assay)
+BRCARnaseq_CorOutliers <- TCGAanalyze_Preprocessing(BRCARnaseq_assay)
 
-# For gene expression if you need to see a boxplot correlation and AAIC plot to define outliers you can run
+query <- GDCquery(project = "TCGA-LGG", 
+                  data.category = "Transcriptome Profiling",
+                  data.type = "Gene Expression Quantification",
+                  experimental.strategy = "RNA-Seq",
+                  workflow.type = "HTSeq - Counts"
+                  )
+GDCdownload(query)
+BRCARnaseq_assay <- GDCprepare(query)
+BRCAMatrix <- assay(BRCARnaseq_assay)
 BRCARnaseq_CorOutliers <- TCGAanalyze_Preprocessing(BRCARnaseq_assay)
 
 
-
 clin.gbm <- GDCquery_clinic("TCGA-GBM", "clinical")
-TCGAanalyze_survival(clin.gbm,
-                     "gender",
-                     main = "TCGA Set\n GBM",height = 10, width=10)
+TCGAanalyze_survival(clin.gbm, "gender", main = "TCGA Set\n GBM",height = 10, width=10)
+
+clin.gbm <- GDCquery_clinic("TCGA-LGG", "clinical")
+TCGAanalyze_survival(clin.gbm, "gender", main = "TCGA Set\n LGG",height = 10, width=10)
