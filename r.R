@@ -8,10 +8,9 @@ listSamplesLGG <- c("TCGA-HT-8558-01A-21D-2391-01","TCGA-HT-7857-10A-01D-2392-01
 
 # Query platform Illumina HiSeq with a list of barcode 
 query <- GDCquery(project = "TCGA-GBM", 
-                  data.category = "Transcriptome Profiling",
-                  data.type = "Gene Expression Quantification",
-                  experimental.strategy = "RNA-Seq",
-                  workflow.type = "HTSeq - Counts"
+                  data.category = "Copy Number Variation",
+                  data.type = "Allele-specific Copy Number Segment",
+                  experimental.strategy = "Genotyping Array",
                   )
 
 # Download a list of barcodes with platform IlluminaHiSeq_RNASeqV2
@@ -19,7 +18,7 @@ GDCdownload(query)
 
 # Prepare expression matrix with geneID in the rows and samples (barcode) in the columns
 # rsem.genes.results as values
-BRCARnaseq_assay <- GDCprepare(query)
+BRCARnaseq_assay <- GDCprepare(query, summarizedExperiment = TRUE)
 
 BRCAMatrix <- assay(BRCARnaseq_assay)
 
@@ -27,3 +26,8 @@ BRCAMatrix <- assay(BRCARnaseq_assay)
 BRCARnaseq_CorOutliers <- TCGAanalyze_Preprocessing(BRCARnaseq_assay)
 
 
+
+clin.gbm <- GDCquery_clinic("TCGA-GBM", "clinical")
+TCGAanalyze_survival(clin.gbm,
+                     "gender",
+                     main = "TCGA Set\n GBM",height = 10, width=10)
