@@ -5,6 +5,7 @@ tagline: DSC 180 Senior Capstone
 description: Comparing Glioblastoma Multiforme (GBM) CNVs with Lower Grade Glioma (LGG) CNVs
 ---
 
+GitHub repository: https://github.com/Ninada-U/Analyzing-CNVs-between-GBM-and-LGG
 The URL to this website is https://ninada-u.github.io/Analyzing-CNVs-between-GBM-and-LGG/
 
 By Yifei Ning, Siqi Huang, and Noah Inada
