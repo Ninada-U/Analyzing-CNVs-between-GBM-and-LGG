@@ -1,7 +1,7 @@
 DSC 180: Senior Capstone
 
-Comparing the CNVs of those with Glioblastoma Multiforme and those with a low-grade glioma
+Comparing the genetic basis between Glioblastoma Multiforme and Low-Grade Gliomas
 
 https://ninada-u.github.io/Analyzing-CNVs-between-GBM-and-LGG
 
-Members: Yifei Ning, Siqi Huang, Noah Inada
+Yifei Ning, Noah Inada
