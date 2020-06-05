@@ -1,0 +1,2 @@
+http://uswest.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000146648;r=7:55019021-55211628
+https://www.genecards.org/cgi-bin/carddisp.pl?gene=ENSG00000264545
