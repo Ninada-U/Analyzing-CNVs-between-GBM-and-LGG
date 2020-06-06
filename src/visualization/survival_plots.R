@@ -1,3 +1,5 @@
+#! /usr/bin/Rscript
+
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 

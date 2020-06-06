@@ -6,18 +6,18 @@ import re
 import json
 import subprocess
 
-with open("./../../config.json") as f:
+with open("config.json") as f:
     cfg = json.load(f)
-    
+
 draw_survival_plot = cfg['draw_survival_plot']
-draw_focal_plots = cfg['draw_focal_plots']
+draw_focal_plots = cfg['draw_focal_score_plots']
 draw_focal_proportion_plots = cfg['draw_focal_score_probability_plots']
 
 if draw_survival_plot:
-    subprocess.call("survival_plots.R", shell=True)
+    subprocess.call("/src/visualization/survival_plots.R", shell=True)
 
-lgg_p = './../../data/external/LGG.focal_score_by_genes.txt'
-gbm_p = './../../data/external/GBM.focal_score_by_genes.txt'
+lgg_p = 'data/external/LGG.focal_score_by_genes.txt'
+gbm_p = 'data/external/GBM.focal_score_by_genes.txt'
 lgg_df = pd.read_csv(lgg_p, sep = '\t')
 gbm_df = pd.read_csv(gbm_p, sep = '\t')
 
@@ -33,7 +33,7 @@ if draw_focal_plots:
     plt.title('LGG focal score by gene')
     plt.xlabel('Gene Indices')
     plt.ylabel('Case Indices')
-    plt.savefig('LGG focal map.png', dpi=300)
+    plt.savefig('reports/figures/LGG focal map.png', dpi=300)
 
     cmap = plt.cm.jet
     cmaplist = [cmap(i) for i in range(cmap.N)]
@@ -45,7 +45,7 @@ if draw_focal_plots:
     plt.title('GBM Focal Score by Gene')
     plt.xlabel('Gene Indices')
     plt.ylabel('Case Indices')
-    plt.savefig('GBM focal map.png', dpi=300)
+    plt.savefig('reports/figures/GBM focal map.png', dpi=300)
     
 if draw_focal_proportion_plots:
     b, indices = set(), []
@@ -71,7 +71,7 @@ if draw_focal_proportion_plots:
     plt.ylabel("Focal Score Proportions")
     for i in indices:
         plt.axvline(x=i, color='black', linewidth=.5)
-    plt.savefig('./../../reports/figures/GBM probabilities zoomed and delineated', dpi=300)
+    plt.savefig('reports/figures/GBM probabilities zoomed and delineated', dpi=300)
     
     
     b, indices = set(), []
@@ -97,4 +97,4 @@ if draw_focal_proportion_plots:
     plt.ylabel("Focal Score Proportions")
     for i in indices:
         plt.axvline(x=i, color='black', linewidth=.5)
-    plt.savefig('./../../reports/figures/LGG probabilities zoomed and delineated', dpi=300)
+    plt.savefig('reports/figures/LGG probabilities zoomed and delineated', dpi=300)

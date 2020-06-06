@@ -1,5 +1,21 @@
-R (version)
-TCGAbiolinks (link)
+R version 4.0.0
 
-Python 3(version) + (packages) -- (data ingestion)
-Python 3(version) + (packages) -- (visualization)
+Data Ingestion
+	Python 3
+		requests
+		json
+		re
+		patoolib
+		pathlib
+		shutil
+		os
+		time
+
+Visualization & Analysis
+	Python 3
+		pandas
+		numpy
+		matplotlib
+		re
+		json
+		subprocess
