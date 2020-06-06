@@ -1,0 +1,5 @@
+{
+	"draw_survival_plot": true,
+	"draw_focal_score_plots": true,
+	"draw_focal_score_probability_plots": true
+}

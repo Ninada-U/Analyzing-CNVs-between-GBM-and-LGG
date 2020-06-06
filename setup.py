@@ -8,5 +8,5 @@ setup(name='GBM-and-LGG',
       author='Genetics - Group 2',
       author_email='ninada@ucsd.edu',
       url='https://github.com/Ninada-U/Analyzing-CNVs-between-GBM-and-LGG',
-      packages=['pandas', 'subprocess', 'matplotlib', 're'],
+      packages=['pandas', 'subprocess', 'matplotlib', 're', 'json'],
      )
