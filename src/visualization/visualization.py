@@ -6,9 +6,10 @@ import re
 import json
 import subprocess
 
+
+# determine which visualizations to plot
 with open("config.json") as f:
     cfg = json.load(f)
-
 draw_survival_plot = cfg['draw_survival_plot']
 draw_focal_plots = cfg['draw_focal_score_plots']
 draw_focal_proportion_plots = cfg['draw_focal_score_probability_plots']
@@ -22,9 +23,10 @@ lgg_df = pd.read_csv(lgg_p, sep = '\t')
 gbm_df = pd.read_csv(gbm_p, sep = '\t')
 
 
-if draw_focal_plots:
+if draw_focal_plots:  # the 'matrix' plots
     cmap = plt.cm.jet
     cmaplist = [cmap(i) for i in range(cmap.N)]
+    # set 1, 0, and -1 values to blue, white, and red
     cmaplist = [(1, 0, 0, 1), (0, 0, 0, 0), (0, 0, 1, 1)]
     cmap = mpl.colors.LinearSegmentedColormap.from_list(
     'Custom cmap', cmaplist, cmap.N)
@@ -35,19 +37,15 @@ if draw_focal_plots:
     plt.ylabel('Case Indices')
     plt.savefig('reports/figures/LGG focal map.png', dpi=300)
 
-    cmap = plt.cm.jet
-    cmaplist = [cmap(i) for i in range(cmap.N)]
-    cmaplist = [(1, 0, 0, 1), (0, 0, 0, 0), (0, 0, 1, 1)]
-    cmap = mpl.colors.LinearSegmentedColormap.from_list(
-    'Custom cmap', cmaplist, cmap.N)
-
     plt.imshow(gbm_df.iloc[:, 3:].T, cmap=cmap, aspect='auto')
     plt.title('GBM Focal Score by Gene')
     plt.xlabel('Gene Indices')
     plt.ylabel('Case Indices')
     plt.savefig('reports/figures/GBM focal map.png', dpi=300)
     
+# takes a few minutes to run
 if draw_focal_proportion_plots:
+    # use the cytoband data to delineate genes by chromosome
     b, indices = set(), []
     for i, e in enumerate(gbm_df['Cytoband']):
         e = e.replace('p', 'q').split('q')[0]
@@ -55,8 +53,10 @@ if draw_focal_proportion_plots:
             b.add(e)
             indices.append(i)
 
+    # change scale to zoom in or out - .05, .022, and .002 are good values to try
     scale = .022
     gbm_x = gbm_df.iloc[:, 3:].T.columns
+    # sum the ones and negative ones in each column to plot as blue and red dots
     gbm_dup = gbm_df.iloc[:, 3:].T.apply(lambda c: len(c[c>0]))
     gbm_del = gbm_df.iloc[:, 3:].T.apply(lambda c: len(c[c<0])) * -1
     gbm_dup = gbm_dup / len(gbm_df)
@@ -73,7 +73,7 @@ if draw_focal_proportion_plots:
         plt.axvline(x=i, color='black', linewidth=.5)
     plt.savefig('reports/figures/GBM probabilities zoomed and delineated', dpi=300)
     
-    
+    # same code as above but for LGG
     b, indices = set(), []
     for i, e in enumerate(lgg_df['Cytoband']):
         e = e.replace('p', 'q').split('q')[0]

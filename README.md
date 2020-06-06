@@ -7,3 +7,7 @@ Comparing the genetic basis between Glioblastoma Multiforme and Low-Grade Glioma
 https://siqihuang47.github.io/dsc180b_visualization/
 
 Noah Inada, Yifei Ning, Siqi Huang
+
+
+
+python run.py
